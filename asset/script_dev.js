@@ -1,6 +1,6 @@
 var cityLocations = [];
 var currentCity;
-var APIKey = dc09ac6284d9ebe0179a7090a2a07dd6;
+var APIKey = "dc09ac6284d9ebe0179a7090a2a07dd6";
 
 function initialize() {
     //grab previous locations from local storage
