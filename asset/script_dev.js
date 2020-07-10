@@ -1,11 +1,10 @@
 var cityLocations = [];
 var currentCity;
-var APIKey = dc09ac6284d9ebe0179a7090a2a07dd6&units;
+var APIKey = dc09ac6284d9ebe0179a7090a2a07dd6;
 
 function initialize() {
     //grab previous locations from local storage
-    cityLocations = JSON.parse(localStorage.getItem("weathercities"));
-    var lastSearch;
+    cityLocations = JSON.parse(localStorage.getItem("weatherdb"));    
     //display buttons for previous searches
     if (cityLocations) {
         //get the last city searched so we can display it
@@ -29,7 +28,7 @@ function initialize() {
 function success(position) {
     var lat = position.coords.latitude;
     var lon = position.coords.longitude;
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&APPID=dc09ac6284d9ebe0179a7090a2a07dd6";
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&APPID=" + APIKey;
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -66,13 +65,13 @@ function showPrevious() {
 }
 
 function getCurrent(city) {
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + APIKey + "=imperial";
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + APIKey + "&units=imperial";
     $.ajax({
         url: queryURL,
         method: "GET",
         error: function (){
             cityLocations.splice(cityLocations.indexOf(city), 1);
-            localStorage.setItem("weathercities", JSON.stringify(cityLocations));
+            localStorage.setItem("weatherdb", JSON.stringify(cityLocations));
             initialize();
         }
     }).then(function (response) {
@@ -141,7 +140,7 @@ function getCurrent(city) {
 
 function getForecast(city) {
     //get 5 day forecast
-    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + city + "&APPID=" + APIKey + "=imperial";
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + city + "&APPID=" + APIKey + "&units=imperial";
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -189,7 +188,7 @@ function saveLoc(location){
         cityLocations.push(location);
     }
     //save the new array to localstorage
-    localStorage.setItem("weathercities", JSON.stringify(cityLocations));
+    localStorage.setItem("weatherdb", JSON.stringify(cityLocations));
     showPrevious();
 }
 
