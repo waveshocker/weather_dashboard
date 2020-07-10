@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Dashboard</title>
+  <!-- Bootstrap CSS CDN  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+  </style>
+</head>
+
+<body>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4 text-center">Weather Dashboard</h1>          
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class ="col-md-3"> 
+                <form class="form-inline">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="search_city" class="sr-only">City</label>
+                        <input type="text" class="form-control" id="searchinput" placeholder="City">
+                    </div>
+                    <button type="search" class="btn btn-primary mb-2" id="searchbtn">Search</button>
+                </form>
+                <div class="mt-5" id="prevSearches">
+                    
+                </div>
+            </div>
+
+
+            <div class ="col-md-9">
+                <div class="container" id="forecast">                    
+                </div>                
+            </div>
+        </div>
+    </div> 
+    
+
+  <!-- jQuery JS -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+  <!-- Code to the JavaScript File -->
+  <script src="asset/script_dev.js"></script>
+
+</body>
+
+</html>
