@@ -12,20 +12,18 @@ function initialize() {
         showPrevious();
         getCurrent(currentCity);
     }
-    else {
-        //try to geolocate, otherwise set city to raleigh
+    else {        
         if (!navigator.geolocation) {
-            //can't geolocate and no previous searches, so just give them one
             getCurrent("Toronto");
         }
         else {
-            navigator.geolocation.getCurrentPosition(success, error);
+            navigator.geolocation.getCurrentPosition(lookup, err);
         }
     }
 
 }
 
-function success(position) {
+function lookup(position) {
     var lat = position.coords.latitude;
     var lon = position.coords.longitude;
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&APPID=" + APIKey;
@@ -40,7 +38,7 @@ function success(position) {
 
 }
 
-function error(){
+function err(){
     currentCity = "Toronto"
     getCurrent(currentCity);
 }
@@ -90,6 +88,7 @@ function getCurrent(city) {
         var iconURL = "https://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png";
 
         var imgDiv = $("<div>").attr("class", "col-md-4").append($("<img>").attr("src", iconURL).attr("class", "card-img"));
+        
         cardRow.append(imgDiv);
 
         var textDiv = $("<div>").attr("class", "col-md-8");
