@@ -1,3 +1,9 @@
+//Declare all used variables
+
+var prevSearch = $("#prevSearches");
+var forecast =  $("#forecast");
+var searchIn = $("#searchinput");
+var searchBtn = $("#searchbtn");
 var cityLocations = [];
 var currentCity;
 //var APIKey = "dc09ac6284d9ebe0179a7090a2a07dd6";
@@ -46,7 +52,7 @@ function err(){
 function showPrevious() {
     //show the previously searched for locations based on what is in local storage
     if (cityLocations) {
-        $("#prevSearches").empty();
+        prevSearch.empty();
         var btns = $("<div>").attr("class", "list-group");
         for (var i = 0; i < cityLocations.length; i++) {
             var locBtn = $("<a>").attr("href", "#").attr("id", "loc-btn").text(cityLocations[i]);
@@ -58,7 +64,7 @@ function showPrevious() {
             }
             btns.prepend(locBtn);
         }
-        $("#prevSearches").append(btns);
+        prevSearch.append(btns);
     }
 }
 
@@ -75,7 +81,7 @@ function getCurrent(city) {
     }).then(function (response) {
         //create the card
         var currCard = $("<div>").attr("class", "card bg-light");
-        $("#forecast").append(currCard);
+        forecast.append(currCard);
 
         //add location to card header
         var currCardHead = $("<div>").attr("class", "card-header").text("Current weather for " + response.name);
@@ -146,7 +152,7 @@ function getForecast(city) {
     }).then(function (response) {
         //add container div for forecast cards
         var newrow = $("<div>").attr("class", "row");
-        $("#forecast").append(newrow);
+        forecast.append(newrow);
 
         //loop through array response to find the forecasts for 15:00
         for (var i = 0; i < response.list.length; i++) {
@@ -175,7 +181,7 @@ function getForecast(city) {
 
 function clear() {
     //clear all the weather
-    $("#forecast").empty();
+    forecast.empty();
 }
 
 function saveLoc(location){
@@ -191,11 +197,11 @@ function saveLoc(location){
     showPrevious();
 }
 
-$("#searchbtn").on("click", function () {
+searchBtn.on("click", function () {
     //don't refresh the screen
     event.preventDefault();
     //grab the value of the input field
-    var location = $("#searchinput").val().trim();
+    var location = searchIn.val().trim();
     //if loc wasn't empty
     if (location !== "") {
         //clear the previous forecast
@@ -203,7 +209,7 @@ $("#searchbtn").on("click", function () {
         currentCity = location;
         saveLoc(location);
         //clear the search field value
-        $("#searchinput").val("");
+        searchIn.val("");
         //get the new forecast
         getCurrent(location);
     }
